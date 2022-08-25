@@ -32,82 +32,6 @@ class IndexPage extends StatelessWidget {
   }
 }
 
-class ContactPage extends StatelessWidget {
-  const ContactPage({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-        body: Form(
-      child: Scrollbar(
-        child: Align(
-          alignment: Alignment.topCenter,
-          child: Card(
-            child: SingleChildScrollView(
-              padding: const EdgeInsets.all(16),
-              child: ConstrainedBox(
-                constraints: const BoxConstraints(maxWidth: 400),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    ...[
-                      TextFormField(
-                        decoration: const InputDecoration(
-                          filled: true,
-                          labelText: 'Nombre',
-                        ),
-                        onChanged: (value) {
-                          print(value);
-                        },
-                      ),
-                      TextFormField(
-                          decoration: const InputDecoration(
-                            filled: true,
-                            labelText: 'Apellidos',
-                          ),
-                          onChanged: (value) {
-                            print(value);
-                          }),
-                      TextFormField(
-                          decoration: const InputDecoration(
-                            filled: true,
-                            labelText: 'Teléfono',
-                          ),
-                          onChanged: (value) {
-                            print(value);
-                          }),
-                      TextFormField(
-                          decoration: const InputDecoration(
-                            filled: true,
-                            labelText: 'Email',
-                          ),
-                          onChanged: (value) {
-                            print(value);
-                          }),
-                      ElevatedButton(
-                        onPressed: () {},
-                        child: Text('Enviar'),
-                      ),
-                    ].expand(
-                      (widget) => [
-                        widget,
-                        const SizedBox(
-                          height: 24,
-                        )
-                      ],
-                    )
-                  ],
-                ),
-              ),
-            ),
-          ),
-        ),
-      ),
-    ));
-  }
-}
-
 class ServicesPage extends StatelessWidget {
   final List<Map<String, dynamic>> items;
 
@@ -181,8 +105,7 @@ class HomePageState extends State<HomePage> {
     IndexPage(),
     ServicesPage(
       items: services,
-    ),
-    ContactPage()
+    )
   ];
 
   void _onItemTapped(int index) {
@@ -207,11 +130,7 @@ class HomePageState extends State<HomePage> {
           BottomNavigationBarItem(
             icon: Icon(Icons.supervised_user_circle_sharp),
             label: 'Servicios',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.contact_support),
-            label: 'Contacto',
-          ),
+          )
         ],
         currentIndex: _selectedIndex,
         selectedItemColor: Colors.amber[800],
