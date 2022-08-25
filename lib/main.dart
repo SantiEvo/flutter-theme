@@ -4,10 +4,14 @@
 
 // ignore_for_file: deprecated_member_use
 
+import 'dart:convert';
+
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:theme_provider/theme_provider.dart';
-import './utils/themes/blue.dart';
+import 'package:http/http.dart' as http;
+
+import 'utils/themes/red.dart';
 import 'utils/themes/light.dart';
 import './utils/themes/dark.dart';
 
@@ -105,7 +109,7 @@ class ContactPage extends StatelessWidget {
 }
 
 class ServicesPage extends StatelessWidget {
-  final List<String> items;
+  final List<Map<String, dynamic>> items;
 
   const ServicesPage({Key? key, required this.items}) : super(key: key);
 
@@ -116,8 +120,14 @@ class ServicesPage extends StatelessWidget {
       child: ListView.builder(
         itemCount: items.length,
         itemBuilder: (context, index) {
-          return Card(
-            child: Text(items[index]),
+          return Container(
+            margin: const EdgeInsets.all(20.0),
+            child: Column(
+              children: [
+                Image.network(items[index].values.toList()[4]),
+                Text(items[index].values.toList()[2])
+              ],
+            ),
           );
         },
       ),
@@ -134,12 +144,37 @@ class HomePage extends StatefulWidget {
 
 class HomePageState extends State<HomePage> {
   int _selectedIndex = 0;
-  static const List<String> services = [
-    "service_1",
-    "service_2",
-    "service_3",
-    "service_4"
+  static const List<Map<String, dynamic>> services = [
+    {
+      "albumId": 1,
+      "id": 1,
+      "title": "Auditoria",
+      "url": "https://via.placeholder.com/600/92c952",
+      "thumbnailUrl": "https://via.placeholder.com/150/92c952"
+    },
+    {
+      "albumId": 1,
+      "id": 2,
+      "title": "Consultoria",
+      "url": "https://via.placeholder.com/600/771796",
+      "thumbnailUrl": "https://via.placeholder.com/150/771796"
+    },
+    {
+      "albumId": 1,
+      "id": 3,
+      "title": "Creación de marca",
+      "url": "https://via.placeholder.com/600/24f355",
+      "thumbnailUrl": "https://via.placeholder.com/150/24f355"
+    },
+    {
+      "albumId": 1,
+      "id": 4,
+      "title": "Análisis de mercado",
+      "url": "https://via.placeholder.com/600/d32776",
+      "thumbnailUrl": "https://via.placeholder.com/150/d32776"
+    },
   ];
+
   static const TextStyle optionStyle =
       TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
   static const List<Widget> _widgetOptions = <Widget>[
@@ -159,29 +194,30 @@ class HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          title: const Text('Welcome to Flutter'),
-        ),
-        body: Center(child: _widgetOptions.elementAt(_selectedIndex)),
-        bottomNavigationBar: BottomNavigationBar(
-          items: const <BottomNavigationBarItem>[
-            BottomNavigationBarItem(
-              icon: Icon(Icons.home),
-              label: 'Inicio',
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.business),
-              label: 'Servicios',
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.school),
-              label: 'Contacto',
-            ),
-          ],
-          currentIndex: _selectedIndex,
-          selectedItemColor: Colors.amber[800],
-          onTap: _onItemTapped,
-        ));
+      appBar: AppBar(
+        title: const Text('App generator'),
+      ),
+      body: Center(child: _widgetOptions.elementAt(_selectedIndex)),
+      bottomNavigationBar: BottomNavigationBar(
+        items: const <BottomNavigationBarItem>[
+          BottomNavigationBarItem(
+            icon: Icon(Icons.home),
+            label: 'Inicio',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.supervised_user_circle_sharp),
+            label: 'Servicios',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.contact_support),
+            label: 'Contacto',
+          ),
+        ],
+        currentIndex: _selectedIndex,
+        selectedItemColor: Colors.amber[800],
+        onTap: _onItemTapped,
+      ),
+    );
   }
 }
 
